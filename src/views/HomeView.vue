@@ -1,11 +1,11 @@
 <template>
   <div class="home">
     <h1>My Recipes</h1>
-    <button>Add new Recipe</button>
+    <button @click="togglePopup">Add new Recipe</button>
     <div class="recipes">
       <!-- Recipes To Go Here -->
     </div>
-    <div class="add-recipe-popup">
+    <div class="add-recipe-popup" v-if="popupOpen">
       <div class="popup-content">
         <h2>Add new recipe</h2>
 
@@ -35,7 +35,7 @@
           </div>
 
           <button type="submit">Add Recipe</button>
-          <button type="button">Close</button>
+          <button type="button" @click="togglePopup">Close</button>
         </form>
       </div>
     </div>
@@ -43,9 +43,33 @@
 </template>
 
 <script>
-
+import { ref } from 'vue';
 export default {
   name: 'HomeView',
+
+  setup() {
+    const newResipe = ref({
+      title: '',
+      description: '',
+      ingredients: [],
+      method: [],
+      ingredientRows: 1,
+      methodRows: 1,
+    });
+
+    const popupOpen = ref(false);
+
+    const togglePopup = () => {
+      popupOpen.value = !popupOpen.value;
+    }
+
+    return {
+      newResipe,
+      togglePopup,
+      popupOpen,
+    }
+  }
+
 }
 </script>
 
@@ -134,7 +158,7 @@ h1 {
   resize: none;
 }
 
-.popup-content button[type="submit"] {
+.popup-content button[type='submit'] {
   margin-right: 1rem;
 }
 </style>
