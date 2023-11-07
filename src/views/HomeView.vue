@@ -154,7 +154,7 @@ h1 {
 }
 
 .popup-content .group textarea {
-  height: 100px;
+  height: 50px;
   resize: none;
 }
 
