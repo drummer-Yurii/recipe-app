@@ -50,7 +50,7 @@
 
 <script>
 import { ref } from 'vue';
-// import { useStore } from 'vuex';
+import { useStore } from 'vuex';
 export default {
   name: 'HomeView',
 
@@ -65,6 +65,7 @@ export default {
     });
 
     const popupOpen = ref(false);
+    const store = useStore();
 
     const togglePopup = () => {
       popupOpen.value = !popupOpen.value;
@@ -81,10 +82,22 @@ export default {
     const addNewRecipe = () => {
       newRecipe.value.slug = newRecipe.value.title.toLowerCase().replace(/\s/g, '-');
 
-      if (newRecipe.value.slug == '') {
+      if (!newRecipe.value.slug) {
         alert('Please enter a title');
         return;
       }
+      store.commit('ADD_RECIPE', {...newRecipe.value});
+
+      newRecipe.value = {
+        title: '',
+        description: '',
+        ingredients: [],
+        method: [],
+        ingredientRows: 1,
+        methodRows: 1
+      };
+
+      togglePopup();
     }
 
     return {
