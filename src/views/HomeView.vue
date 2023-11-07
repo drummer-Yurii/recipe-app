@@ -112,7 +112,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .home {
   padding: 1rem;
   display: flex;
